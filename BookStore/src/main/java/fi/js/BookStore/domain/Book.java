@@ -1,16 +1,36 @@
 package fi.js.BookStore.domain;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 /**
  *
  * @author jsaja
  */
+@Entity
 public class Book {
-
-    String title, author, isbn;
-    int year, price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    private String title, author, isbn;
+    private int year, price;
 
     public Book() {
+        super();
+    }
 
+    public Book(String title, String author, String isbn, int year, int price) {
+        super();
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.year = year;
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getAuthor() {
@@ -33,6 +53,10 @@ public class Book {
         return price;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -52,4 +76,10 @@ public class Book {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "[ " + this.id + " : " + this.title +" : " + this.author + " : " + this.isbn + " : " + this.year + " : " + this.price + "]";
+    }
+    
 }
