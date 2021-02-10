@@ -1,32 +1,44 @@
 package fi.js.BookStore.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author jsaja
  */
 @Entity
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String title, author, isbn;
     private int year, price;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "departmentid")
+    private Category category;
 
     public Book() {
         super();
     }
 
-    public Book(String title, String author, String isbn, int year, int price) {
+    public Book(String title, String author, String isbn, int year, int price, Category category) {
         super();
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.year = year;
         this.price = price;
+        this.category = category;
     }
 
     public Long getId() {
@@ -48,7 +60,7 @@ public class Book {
     public int getYear() {
         return year;
     }
-    
+
     public int getPrice() {
         return price;
     }
@@ -56,7 +68,7 @@ public class Book {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -77,9 +89,20 @@ public class Book {
         this.price = price;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
-        return "[ " + this.id + " : " + this.title +" : " + this.author + " : " + this.isbn + " : " + this.year + " : " + this.price + "]";
+        if (this.category != null) {
+            return "[ " + this.id + " : " + this.title + " : " + this.author + " : " + this.isbn + " : " + this.year + " : " + this.price +   this.getCategory() + "]";
+        } else {
+            return "[ " + this.id + " : " + this.title + " : " + this.author + " : " + this.isbn + " : " + this.year + " : " + this.price + "]";
+        }
     }
-    
 }

@@ -2,6 +2,7 @@ package fi.js.BookStore.web;
 
 import fi.js.BookStore.domain.Book;
 import fi.js.BookStore.domain.BookRepository;
+import fi.js.BookStore.domain.CategoryRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,10 @@ public class BookController {
 
     @Autowired
     private BookRepository repository;
-
+    
+    @Autowired
+	private CategoryRepository crepository; 
+    
     @GetMapping("/index")
     public String handleRequests(@RequestParam(name = "author", defaultValue = "") String author, Model model) {
         Book book = new Book();
@@ -48,6 +52,7 @@ public class BookController {
     @GetMapping("/add")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categorys", crepository.findAll());
         return "addbook";
     }
 
@@ -66,6 +71,7 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
         model.addAttribute("book", repository.findById(bookId));
+        model.addAttribute("categorys", crepository.findAll());
         return "editbook";
     }
 

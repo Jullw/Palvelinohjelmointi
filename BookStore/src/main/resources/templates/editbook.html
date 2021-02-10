@@ -33,7 +33,13 @@ and open the template in the editor.
 
                             <label for="price">Price</label>
                             <input type="number" id="price" th:field="*{price}"/>
-
+                             
+                            <label for="catlist">Category</label>
+                            <select id="catlist" th:field="*{category.categoryID}" class="form-control">
+                                <option th:each="cat: ${categorys}" th:value="${cat.categoryID}" th:text="${cat.name}"></option>
+                            </select>
+                            <div style="clear: both; display: block; height: 10px;"></div>
+                            
                             <input type="submit" value="Save"></input>
                         </form>
                     </div>
