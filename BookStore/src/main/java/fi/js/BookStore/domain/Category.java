@@ -4,6 +4,7 @@ package fi.js.BookStore.domain;
  *
  * @author jsaja
  */
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,7 +21,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long categoryID;
     private String name;
-
+    
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Book> books;
 

@@ -21,10 +21,11 @@ public class Book {
 
     private String title, author, isbn;
     private int year, price;
-
+    
+    
+    
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "departmentid")
+    @JoinColumn(name = "categoryid")
     private Category category;
 
     public Book() {
